@@ -1,0 +1,44 @@
+a.hidden {
+	text-decoration: none;
+	color: inherit;
+}
+
+transparent {
+	visibility: hidden;
+	opacity: 0%;
+}
+
+.progress-contatiner {
+	width: 100%;
+	background-color: #ddd;
+	text-align: center;
+}
+
+.progress-bar {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: white;
+	background-color: green;
+	padding-right: 7pt;
+}
+
+.progress-bar.overdue {
+	color: white;
+	background-color: red !important;
+	padding: 0;
+}
+
+.row-hover-opaque {
+	opacity: 0.8 !important;
+}
+
+.row-hover-opaque:hover {
+	opacity: 1 !important;
+}
+
+.app-widget {
+	border-radius: 27px;
+	padding: 15px !important;
+	margin: 0 1%;
+
+}

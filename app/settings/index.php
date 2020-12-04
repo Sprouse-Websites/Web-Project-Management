@@ -1,0 +1,158 @@
+<?php
+include '../../includes/config.php';
+include '../../includes/session.php';
+include '../../includes/head.php';
+include '../../includes/app_header.php';
+?>
+<script src="../../js/vtabs.js" charset="utf-8"></script>
+
+</head>
+<body>
+
+	<h2>Vertical Tabs</h2>
+	<p>Click on the buttons inside the tabbed menu:</p>
+
+	<div class="tabs">
+		<div class="vtab">
+			<button class="vtablinks" onclick="openSetting(event, 'Account')" id="defaultOpen">Account</button>
+			<button class="vtablinks" onclick="openSetting(event, 'Appearance')">Appearance</button>
+			<button class="vtablinks" onclick="openSetting(event, 'About')">About</button>
+		</div>
+
+		<div id="Account" class="vtabcontent">
+			<h3>Account</h3>
+			<p>Edit account and security details</p>
+			<h4>Change Password</h4>
+			<form class="" action="chngPswd.php" method="post">
+				<label for="">Current Password</label> <input type="password" id="pswd" name="pswd" oninput="validateNewPswd()">
+				<br>
+				<label for="">New Password</label> <input type="password" name="newpswd" id="newpswd" oninput="validateNewPswd()">
+				<br>
+				<label for="">Confirm New Password</label> <input type="password" id="cnfpswd" name="cnfpswd" oninput="validateNewPswd()">
+				<br>
+				<div id="chngPswdErrors">
+
+				</div>
+				<br>
+				<input id="chngPswdSubmit" type="submit" value="Change Password" disabled>
+			</form>
+			<script type="text/javascript">
+
+			$( document ).ready(function() {
+				$( "#defaultOpen" ).trigger( "click" );
+				$( "#defaultOpen" ).addClass("active");
+			});
+
+			function validateNewPswd() {
+				var pswd = document.getElementById("pswd");
+				var newpswd = document.getElementById("newpswd");
+				var cnfpswd = document.getElementById("cnfpswd");
+				var pswderrorMessage = "";
+				var pswdErrors = 0;
+				var pswdCorrect = 0;
+				if (pswd == newpswd) {
+					pswderrorMessage = pswderrorMessage + "The old password and the new password can not match";
+					pswdErrors++;
+				}
+				if (newpswd == cnfpswd) {
+					pswderrorMessage = pswderrorMessage + "The new password does not match the confirm password";
+					pswdErrors++;
+					console.log("New and Confirm do not match");
+				}
+				if (newpswd.value.length < 8) {
+					pswderrorMessage = pswderrorMessage + "The new password is not long enough";
+					pswdErrors++;
+					console.log("Password not long enough");
+				}
+				var lowerCaseLetters = /[a-z]/g;
+				if(newpswd.value.match(lowerCaseLetters)) {
+					pswdCorrect++;
+				} else {
+					pswdErrors++;
+					console.log("Password not include lowercase");
+				}
+				var upperCaseLetters = /[A-Z]/g;
+				if(newpswd.value.match(upperCaseLetters)) {
+					pswdCorrect++;
+				} else {
+					pswdErrors++;
+					console.log("Password not include uppercase");
+				}
+				var numbers = /[0-9]/g;
+				if(newpswd.value.match(numbers)) {
+					pswdCorrect++;
+				} else {
+					pswdErrors++;
+					console.log("Password not include numbers");
+				}
+				if (pswdErrors == 0) {
+					document.getElementById("chngPswdSubmit").disabled = false;
+				} else {
+					document.getElementById("chngPswdSubmit").disabled = true;
+				}
+				console.log(pswdErrors);
+				document.getElementById("chngPswdErrors").innerHTML = pswderrorMessage;
+			}
+			</script>
+			<?php
+			echo "<table>";
+			echo "<tbody>";
+			echo "<tr>";
+			echo "<td>CompanyID</td>";
+			echo "<td>".$_SESSION['CompanyId']."</td>";
+			echo "</tr>";
+			echo "<tr>";
+			echo "<td>Name</td>";
+			echo "<td>".$_SESSION['FirstName']." ".$_SESSION['LastName']."</td>";
+			echo "</tr>";
+			echo "<tr>";
+			echo "<td>Username</td>";
+			echo "<td>".$_SESSION['Username']."</td>";
+			echo "</tr>";
+			echo "</tbody>";
+			echo "</table>";
+
+			 ?>
+		</div>
+
+		<div id="Appearance" class="vtabcontent">
+			<h3>Appearance</h3>
+			<h4>Theme</h4>
+			<form action="change.php" name="theme" method="post">
+				<?php
+				$sql = 'SELECT Theme, CompanyID FROM users WHERE UserID = ' . $_SESSION['UserID'];
+				// echo $sql;
+				if($result = mysqli_query($link, $sql)){
+					if(mysqli_num_rows($result) > 0){
+						while($row = mysqli_fetch_array($result)){
+							if ($row['Theme'] = "white") {
+								echo '<label>
+								  <input type="radio" name="test" value="white" checked>
+								  <img src="https://placehold.it/60x60/fff/fff">
+								</label>
+								<label>
+								  <input type="radio" name="test" value="blue">
+								  <img src="http://placehold.it/60x60/01f/01f">
+								</label>
+
+							<label>
+							  <input type="radio" name="test" value="orange">
+							  <img src="http://placehold.it/60x60/e90/e90">
+							</label>';
+							}
+						}
+					}
+				}
+				 ?>
+
+			<br>
+			<input type="submit" value="Submit">
+			</form>
+		</div>
+
+		<div id="About" class="vtabcontent">
+			<h3>About</h3>
+			Web Project Management (WPM) is an open source software
+
+		</div>
+	</div>
