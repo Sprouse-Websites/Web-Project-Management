@@ -42,3 +42,15 @@ transparent {
 	margin: 0 1%;
 
 }
+
+input[type="color"] {
+	border: 1pt solid;
+	background: none;
+	border-radius: 4px;
+	margin: 1pt;
+}
+
+input[type="color"]:hover {
+	background: #e8e8e8;
+	box-shadow: 1px 1px 0px 0px darkgrey;
+}

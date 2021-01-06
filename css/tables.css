@@ -1,0 +1,7 @@
+table.no-borders {
+	border: none 0pt;
+}
+
+table.banded-rows tbody tr:nth-child(2n) {
+	background-color: #ddd;
+}
