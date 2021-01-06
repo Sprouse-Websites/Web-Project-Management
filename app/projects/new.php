@@ -15,10 +15,12 @@ include '../../includes/config.php';
 		<span id="clsCPF" style="cursor:pointer; font-size:18pt" onclick="closeCPF()">&times;</span>
 		<form action="cpf.php" method="post">
 			<label for="">Project Name</label>
-			<input type="text" name="project" value="" placeholder="Project Name" style="width:100%;">
+			<input type="text" name="project" value="" placeholder="Project Name" style="width:70%;" required maxlength="50">
+			<label for="">Project Key</label>
+			<input type="text" name="projectkey" value="" style="width:8%;" required maxlength="4">
 			<br>
 			<label for="">Project Description</label>
-			<input type="text" name="description" value="" placeholder="Project Description" style="width:100%;">
+			<textarea name="description" placeholder="Project Description" style="width:100%;" maxlength="200"></textarea>
 			<br>
 			<label for="">Client</label>
 			<select id="clientSelect" class="js-example-basic-single" name="client" oninput="checkClient()">
@@ -29,18 +31,30 @@ include '../../includes/config.php';
 					echo "<option value=\"\" disabled>Could not get list from Database</option>";
 				}
 				// Attempt select query execution
-				$sql = "SELECT DISTINCT Company FROM clients WHERE UserCompanyID =  " . $companyId;
+				$sql = "SELECT DISTINCT Company FROM clients WHERE UserCompanyID =  " . $_SESSION[CompanyId] . " ORDER BY Company";
 
 				if($result = mysqli_query($link, $sql)){
 					if(mysqli_num_rows($result) > 0){
 						while($row = mysqli_fetch_array($result)){
 							echo "<option value=\"".$row['Company']."\">".$row['Company']."</option>";
 						}
-						echo "<option value=\"New\">NEW CLIENT</option>";
 					}
 				}
 				?>
 			</select>
+<br>
+<label for="">State</label>
+<select id="stateSelect" class="js-example-basic-single" name="projectstate">
+	<option value="Active" selected>Active</option>
+	<option value="On Hold">On Hold</option>
+	<option value="Archived">Archived</option>
+</select>
+<label for="">Phase</label>
+<select id="phaseSelect" class="js-example-basic-single" name="projectphase">
+	<option value="Planning" selected>Planning</option>
+	<option value="In Progress">In Progress</option>
+	<option value="Complete">Complete</option>
+</select>
 
 			<script>
 			// In your Javascript (external .js resource or <script> tag)
@@ -48,24 +62,10 @@ include '../../includes/config.php';
 				$('.js-example-basic-single').select2();
 			});
 			</script>
-			<div id="newClientForm" style="display:none;">
-				<input type="text" name="clientname">
-			</div>
-			<script>
-			function checkClient() {
-				var clientSelect = document.getElementById("clientSelect").value;
-				if (clientSelect == "New") {
-					document.getElementById("newClientForm").style.display = "block";
-					document.getElementsByName("ClientName").required = true;
-				} else {
-					document.getElementById("newClientForm").style.display = "none";
-					document.getElementsByName("ClientName").required = false;
-				}
-			}
-			</script>
+
 			<br>
 			<label for="">Colour</label>
-			<input type="color" name="color">
+			<input type="color" name="color" required>
 			<br>
 			<input type="submit" value="Add Project">
 		</form>

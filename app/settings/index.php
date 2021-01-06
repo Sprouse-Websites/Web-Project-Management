@@ -1,5 +1,6 @@
 <?php
 include '../../includes/config.php';
+include '../../includes/lang/index.php';
 include '../../includes/session.php';
 include '../../includes/head.php';
 include '../../includes/app_header.php';
@@ -24,9 +25,11 @@ include '../../includes/app_header.php';
 			<p>Edit account and security details</p>
 			<h4>Change Password</h4>
 			<form class="" action="chngPswd.php" method="post">
-				<label for="">Current Password</label> <input type="password" id="pswd" name="pswd" oninput="validateNewPswd()">
+				<label for="">Current Password</label>
+				<input type="password" id="pswd" name="pswd" oninput="validateNewPswd()">
 				<br>
-				<label for="">New Password</label> <input type="password" name="newpswd" id="newpswd" oninput="validateNewPswd()">
+				<label for="">New Password</label>
+				<input type="password" name="newpswd" id="newpswd" oninput="validateNewPswd()">
 				<br>
 				<label for="">Confirm New Password</label> <input type="password" id="cnfpswd" name="cnfpswd" oninput="validateNewPswd()">
 				<br>
@@ -38,7 +41,7 @@ include '../../includes/app_header.php';
 			</form>
 			<script type="text/javascript">
 
-			$( document ).ready(function() {
+			$(document).ready(function() {
 				$( "#defaultOpen" ).trigger( "click" );
 				$( "#defaultOpen" ).addClass("active");
 			});
@@ -69,7 +72,7 @@ include '../../includes/app_header.php';
 					pswdCorrect++;
 				} else {
 					pswdErrors++;
-					console.log("Password not include lowercase");
+					console.log("Password does not include lowercase");
 				}
 				var upperCaseLetters = /[A-Z]/g;
 				if(newpswd.value.match(upperCaseLetters)) {
@@ -91,68 +94,118 @@ include '../../includes/app_header.php';
 					document.getElementById("chngPswdSubmit").disabled = true;
 				}
 				console.log(pswdErrors);
-				document.getElementById("chngPswdErrors").innerHTML = pswderrorMessage;
+				// document.getElementById("chngPswdErrors").innerHTML = pswderrorMessage;
 			}
 			</script>
-			<?php
-			echo "<table>";
-			echo "<tbody>";
-			echo "<tr>";
-			echo "<td>CompanyID</td>";
-			echo "<td>".$_SESSION['CompanyId']."</td>";
-			echo "</tr>";
-			echo "<tr>";
-			echo "<td>Name</td>";
-			echo "<td>".$_SESSION['FirstName']." ".$_SESSION['LastName']."</td>";
-			echo "</tr>";
-			echo "<tr>";
-			echo "<td>Username</td>";
-			echo "<td>".$_SESSION['Username']."</td>";
-			echo "</tr>";
-			echo "</tbody>";
-			echo "</table>";
 
-			 ?>
+			<hr>
+			<h4>Change Personal Details</h4>
+			<?php // FIXME: Add Personal details form ?>
+
+			<?php
+			// echo "<tr>";
+			// echo "<td>CompanyID</td>";
+			// echo "<td>".$_SESSION['CompanyID']."</td>";
+			// echo "</tr>";
+
+			echo "<form action=\"chngPerDet.php\" method=\"post\">
+			<label>Name</label>
+			<br/>
+			<input type=\"text\" name=\"\" value=\"".$_SESSION['FirstName']."\" style=\"width:50% !important;\">
+			<input type=\"text\" name=\"\" value=\"".$_SESSION['LastName']."\" style=\"width:50% !important;\">
+			<br>
+			<label>Username</label>
+			<input type=\"text\" name=\"\" value=\"".$_SESSION['Username']."\">
+			<br/>
+			<label>Company</label>
+			<input type=\"text\" name=\"\" value=\"".$_SESSION['CompanyID']."\">
+			</form>";
+
+			?>
+
+			<hr>
+
+			<form method="POST" action="/create_customer_portal_session">
+				<button type="submit">Manage billing</button>
+			</form>
 		</div>
 
 		<div id="Appearance" class="vtabcontent">
 			<h3>Appearance</h3>
 			<h4>Theme</h4>
 			<form action="change.php" name="theme" method="post">
+				<input type="hidden" name="form" value="Theme">
 				<?php
 				$sql = 'SELECT Theme, CompanyID FROM users WHERE UserID = ' . $_SESSION['UserID'];
 				// echo $sql;
 				if($result = mysqli_query($link, $sql)){
 					if(mysqli_num_rows($result) > 0){
 						while($row = mysqli_fetch_array($result)){
-							if ($row['Theme'] = "white") {
+							if ($row['Theme'] == "white") {
 								echo '<label>
-								  <input type="radio" name="test" value="white" checked>
-								  <img src="https://placehold.it/60x60/fff/fff">
+								<input type="radio" name="Theme" value="white" checked>
+								<img src="https://placehold.it/60x60/fff/fff">
 								</label>
 								<label>
-								  <input type="radio" name="test" value="blue">
-								  <img src="http://placehold.it/60x60/01f/01f">
+								<input type="radio" name="Theme" value="blue">
+								<img src="http://placehold.it/60x60/01f/01f">
 								</label>
-
-							<label>
-							  <input type="radio" name="test" value="orange">
-							  <img src="http://placehold.it/60x60/e90/e90">
-							</label>';
+								<label>
+								<input type="radio" name="Theme" value="orange">
+								<img src="http://placehold.it/60x60/e90/e90">
+								</label>';
+							} elseif ($row['Theme'] == "blue") {
+								echo '<label>
+								<input type="radio" name="Theme" value="white">
+								<img src="https://placehold.it/60x60/fff/fff">
+								</label>
+								<label>
+								<input type="radio" name="Theme" value="blue" checked>
+								<img src="http://placehold.it/60x60/01f/01f">
+								</label>
+								<label>
+								<input type="radio" name="Theme" value="orange">
+								<img src="http://placehold.it/60x60/e90/e90">
+								</label>';
+							}
+							elseif ($row['Theme'] == "orange") {
+								echo '<label>
+								<input type="radio" name="Theme" value="white">
+								<img src="https://placehold.it/60x60/fff/fff">
+								</label>
+								<label>
+								<input type="radio" name="Theme" value="blue">
+								<img src="http://placehold.it/60x60/01f/01f">
+								</label>
+								<label>
+								<input type="radio" name="Theme" value="orange" checked>
+								<img src="http://placehold.it/60x60/e90/e90">
+								</label>';
 							}
 						}
 					}
 				}
-				 ?>
+				?>
 
-			<br>
-			<input type="submit" value="Submit">
+				<br>
+				<input type="submit" value="Submit">
 			</form>
 		</div>
 
 		<div id="About" class="vtabcontent">
 			<h3>About</h3>
-			Web Project Management (WPM) is an open source software
+			<p>Web Project Management (WPM) is an <a href="https://github.com/Sprouse-Websites/Web-Project-Management/">open-source</a>, web-based project management system for website developers. It is available under the GNU General Public License v3.0.</p>
 
+			Version <?php echo $WPMversion; ?>
+
+			<h4>Credits</h4>
+			<h5>Developers</h5>
+			<textarea disabled rows="8" cols="80">
+				Joel Sprouse
+			</textarea>
+			<h5>Designers</h5>
+			<textarea disabled rows="8" cols="80">
+				Joel Sprouse
+			</textarea>
 		</div>
 	</div>

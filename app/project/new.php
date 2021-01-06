@@ -1,50 +1,9 @@
 <?php
 include '../../includes/config.php';
 ?>
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
+<link rel="stylesheet" href="../../css/ctf.css">
 
-/* The Modal (background) */
-.ctf {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.ctf-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-}
-
-/* The Close Button */
-clsCTF {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-clsCTF:hover,
-clsCTF:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-</style>
-
-<button id="opnCTF" type="button" class="w3-button w3-green" name="button" style="cursor:pointer;">Create Task</button>
+<button id="opnCTF" type="button" class="w3-button w3-green" name="button" style="cursor:pointer;"><i class="fas fa-plus"></i></button>
 
 
 <!-- The Modal -->
@@ -54,14 +13,15 @@ clsCTF:focus {
 	<div class="ctf-content">
 		<span id="clsCTF" style="cursor:pointer; font-size:18pt">&times;</span>
 		<form action="ctf.php" method="post">
+			<input type="text" name="project" value="<?php echo $projectId; ?>" style="display:none;">
 			<label for="">Task Name</label>
-			<input type="text" name="task" value="" placeholder="Task Name" style="width:100%;">
+			<input type="text" name="task" value="" placeholder="Task Name" style="width:100%;" required>
 			<br>
 			<label for="">Task Description</label>
 			<input type="text" name="description" value="" placeholder="Task Description" style="width:100%;">
 			<br>
 			<label for="">Duration</label>
-			<div id="" class="w3-row" style="">
+			<div class="w3-row" style="">
 
 
 				<div class="sw-fifth">
@@ -86,7 +46,7 @@ clsCTF:focus {
 				</div>
 			</div>
 			<br>
-			<input type="number" disabled id="secondsoutput" name="Duration">
+			<input type="number" id="secondsoutput" name="Duration" style="visibility:hidden;">
 
 			<script type="text/javascript">
 			function secToHMS() {
@@ -102,7 +62,7 @@ clsCTF:focus {
 
 			</script>
 			<?php
-			$sql = 'SELECT * FROM projects WHERE CompanyID = ' . $companyId . ' AND ProjectState = "Active" ORDER BY ProjectName;';
+			$sql = 'SELECT * FROM projects WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND ProjectState = "Active" ORDER BY ProjectName;';
 			if($result = mysqli_query($link, $sql)){
 				if(mysqli_num_rows($result) > 0){
 					echo "<select class=\"\" name=\"\Project\">";

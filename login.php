@@ -1,11 +1,16 @@
 <?php
-include "includes/config.php";
-include "includes/session.php";
-
+require "includes/config.php";
+require "includes/session.php";
 $error = "";
-
 $page_name = "Login";
 include 'includes/head.php';
+
+if ($_SESSION['Username'] !== NULL) {
+	echo "<script type=\"text/javascript\">
+	window.location.replace(\"https://www.webprojectmanagement.site/login.php\");
+	</script>";
+	exit;
+}
 
 // username and password sent from form
 $myusername = $_POST['username'];
@@ -19,7 +24,7 @@ if (mysqli_connect_errno()){
 if (mysqli_num_rows($result) == 1) {
 	$row = mysqli_fetch_array($result);
 	// $active = $row['active'];
-	$_SESSION['CompanyId'] = $row['CompanyId'];
+	$_SESSION['CompanyID'] = $row['CompanyId'];
 	$_SESSION['UserID'] = $row['UserID'];
 	$_SESSION['FirstName'] = $row['FirstName'];
 	$_SESSION['LastName'] = $row['LastName'];
@@ -27,7 +32,6 @@ if (mysqli_num_rows($result) == 1) {
 	$timestamp = date("Y-m-d h:i:s");
 	$sql = "UPDATE `users` SET `LastLogin`='$timestamp' WHERE `Username` = '$_SESSION[Username]'";
 	$result = mysqli_query($link,$sql);
-	$_SESSION['wpm_login_user'] = $row['Username'];
 	header("Location: app");
 } else {
 	$sql = "SELECT * FROM users WHERE Username = '$myusername';";
@@ -47,6 +51,7 @@ body {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:14px;
 }
+
 .login {
 	width: 400px;
 	background-color: #ffffff;
@@ -106,7 +111,7 @@ body {
 }
 </style>
 
-<body bgcolor = "#FFFFFF">
+<body>
 
 	<div align = "center">
 		Please Login
@@ -136,6 +141,6 @@ body {
 	</div>
 
 	<?php
-	include '/webprojectmanagement/includes/footer.php';
-	include '/webprojectmanagement/includes/foot.php';
+	include 'includes/footer.php';
+	include 'includes/foot.php';
 	?>

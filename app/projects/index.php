@@ -1,6 +1,7 @@
 <?php
-include '../../includes/config.php';
 $page_name = "Projects | WPM";
+include '../../includes/config.php';
+include '../../includes/lang/index.php';
 include '../../includes/session.php';
 include '../../includes/head.php';
 include '../../includes/app_header.php';
@@ -11,9 +12,7 @@ include 'new.php';
 
 <div>
 	<?php
-
-	$companyId = $_SESSION['CompanyId'];
-	$sql = 'SELECT * FROM projects WHERE CompanyID = ' . $companyId . ' AND ProjectState = "Active";';
+	$sql = 'SELECT * FROM projects WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND ProjectState = "Active";';
 	// echo $sql; // For Dedugging Purposes
 	if($result = mysqli_query($link, $sql)){
 		if(mysqli_num_rows($result) > 0){
@@ -33,14 +32,15 @@ include 'new.php';
 					$Colour = "white";
 					echo "<tr class=\"row-hover-opaque  auto-text-colour\" style=\"background-color:".$Colour.";\">";
 				} else {
-					echo "<tr class=\"row-hover-opaque  auto-text-colour\" style=\"background-color:#".$Colour.";\">";
+					echo "<tr class=\"row-hover-opaque  auto-text-colour\" style=\"background-color:".$Colour.";\">";
 				}
 
-				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "&key=" . $row['ProjectKey'] . "&colour=" . $Colour . "&name=" . $row['ProjectName'] . "\">".$row['ProjectKey']."</a></td>";
-				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "&key=" . $row['ProjectKey'] . "&colour=" . $Colour . "&name=" . $row['ProjectName'] . "\">".$row['ProjectName']."</a></td>";
-				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "&key=" . $row['ProjectKey'] . "&colour=" . $Colour . "&name=" . $row['ProjectName'] . "\">".$row['Description']."</a></td>";
-				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "&key=" . $row['ProjectKey'] . "&colour=" . $Colour . "&name=" . $row['ProjectName'] . "\">".$row['Client']."</a></td>";
-				$sql2 = "SELECT SUM(TimeTracked) As TimeTrackedCnt, SUM(Duration) As DurationCnt FROM tasks WHERE ProjectId = '".$idInt."'";
+				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "\">".$row['ProjectKey']."</a></td>";
+				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "\">".$row['ProjectName']."</a></td>";
+				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "\">".$row['Description']."</a></td>";
+				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "\">".$row['Client']."</a></td>";
+				// FIXME: Progress not reciving sql
+				$sql2 = "SELECT SUM(TimeTracked) As TimeTrackedCnt, SUM(Duration) As DurationCnt FROM tasks WHERE ProjectId = ".$idInt;
 				if($result2 = mysqli_query($link, $sql)){
 					if(mysqli_num_rows($result2) > 0){
 						while($row2 = mysqli_fetch_array($result2)){
@@ -56,7 +56,7 @@ include 'new.php';
 						}
 					}
 				}
-				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "&colour=" . $Colour . "&name=" . $row['ProjectName'] . "\"><div class=\"progress-contatiner\"><div class=\"progress-bar\" style=\"width:".(float)$progress."%; ".$var1."\">";
+				echo "<td><a class=\"hidden\" href=\"../project?id=" . $idInt . "\"><div class=\"progress-contatiner\"><div class=\"progress-bar\" style=\"width:".(float)$progress."%; ".$var1."\">";
 
 				echo $TimeTracked;
 				echo "/";
@@ -73,8 +73,9 @@ include 'new.php';
 		echo "<br/>";
 		echo mysqli_error($link);
 
-		echo $link; // For Dedugging Purposes
+		echo (string)$link; // For Dedugging Purposes
 	}
+
 
 
 	?>
