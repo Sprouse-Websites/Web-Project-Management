@@ -12,6 +12,9 @@
 	<!-- 3rd Party CSS -->
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
 	<!-- Our JS -->
 	<script type="text/javascript" src="https://www.webprojectmanagement.site/js/sort.js"></script>
 
@@ -21,8 +24,11 @@
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/e8abc56752.js" crossorigin="anonymous"></script>
 
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+<!-- Transifex (Translation) -->
+<script type="text/javascript">window.liveSettings={api_key:"c87f9aaa40e84c37aaf1494c22d73659"};</script>
+<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
 
 <!-- Analytics -->
 <!-- 251202601 -->
