@@ -1,12 +1,9 @@
 @import "misc.css";
 @import "autocomplete.css";
+@import "tables.css";
 @import "tabs.css";
 @import "vtabs.css";
 
 main {
 	margin: 4pt;
-}
-
-table.no-borders {
-	border: none 0pt;
 }
