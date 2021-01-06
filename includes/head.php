@@ -27,7 +27,7 @@
 
 
 <!-- Transifex (Translation) -->
-<script type="text/javascript">window.liveSettings={api_key:"c87f9aaa40e84c37aaf1494c22d73659"};</script>
+<script type="text/javascript">window.liveSettings={api_key:"$transifexAPI"};</script>
 <script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
 
 <!-- Analytics -->
