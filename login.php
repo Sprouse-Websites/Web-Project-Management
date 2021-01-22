@@ -5,13 +5,6 @@ $error = "";
 $page_name = "Login";
 include 'includes/head.php';
 
-if ($_SESSION['Username'] !== NULL) {
-	echo "<script type=\"text/javascript\">
-	window.location.replace(\"https://www.webprojectmanagement.site/login.php\");
-	</script>";
-	exit;
-}
-
 // username and password sent from form
 $myusername = $_POST['username'];
 $mypassword = $_POST['password'];
@@ -24,15 +17,26 @@ if (mysqli_connect_errno()){
 if (mysqli_num_rows($result) == 1) {
 	$row = mysqli_fetch_array($result);
 	// $active = $row['active'];
-	$_SESSION['CompanyID'] = $row['CompanyId'];
+	$_SESSION['CompanyID'] = $row['CompanyID'];
 	$_SESSION['UserID'] = $row['UserID'];
 	$_SESSION['FirstName'] = $row['FirstName'];
 	$_SESSION['LastName'] = $row['LastName'];
 	$_SESSION['Username'] = $row['Username'];
+	$_SESSION['Lang'] = $row['Lang'];
 	$timestamp = date("Y-m-d h:i:s");
 	$sql = "UPDATE `users` SET `LastLogin`='$timestamp' WHERE `Username` = '$_SESSION[Username]'";
-	$result = mysqli_query($link,$sql);
-	header("Location: app");
+	mysqli_query($link,$sql);
+	if ($_GET['url'] == "") {
+		$echo = "<script type=\"text/javascript\">
+		window.location.replace(\"https://www.webprojectmanagement.site/app\");
+		</script>";
+	} else {
+		$echo = "<script type=\"text/javascript\">
+		window.location.replace(\"https://www.webprojectmanagement.site".$_GET['url']."\");
+		</script>";
+	}
+
+	echo $echo;
 } else {
 	$sql = "SELECT * FROM users WHERE Username = '$myusername';";
 	// echo $sql;
@@ -40,8 +44,26 @@ if (mysqli_num_rows($result) == 1) {
 	if (mysqli_num_rows($result) > 0) {
 		$error = "Wrong Password for this account";
 	} else {
-		$error = "There is no account with this username on this server.";
+		if ($myusername == "") {
+			// code...
+		} else {
+			$error = "There is no account with this username on this server.";
+		}
+
 	}
+}
+
+$sql = "SELECT * FROM companies where CompanyID = ".$_SESSION['CompanyID'].";";
+$result = mysqli_query($link,$sql);
+$row = mysqli_fetch_array($result);
+$_SESSION['AdminID'] = $row['AdminID'];
+if ($_SESSION["UserID"] == $_SESSION["AdminID"]) {
+	$_SESSION['Admin'] = true;
+}
+$_SESSION['TogglAPI'] = $row['TogglAPI'];
+$_SESSION['TogglWID'] = $row['TogglWID'];
+if ($_SESSION['TogglWID'] !== NULL) {
+	$_SESSION['Toggle'] = True;
 }
 
 ?>
@@ -120,7 +142,7 @@ body {
 
 			<div style = "margin:30px">
 
-				<form action="login.php" method="post">
+				<form action="login.php?url=<?php echo $_GET[url]; ?>" method="post">
 					<label for="username">
 						<i class="fas fa-user"></i>
 					</label>
@@ -133,6 +155,10 @@ body {
 				</form>
 
 				<div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error;?></div>
+
+				<div id="" class="" style="">
+					Don't have an account? <a href="signup">Signup Here</a>
+				</div>
 
 			</div>
 
