@@ -1,8 +1,8 @@
 <?php
+include '../../includes/privconfig.php';
 include '../../includes/config.php';
 $page_name = "Clients | WPM";
-include '../../includes/lang/index.php';
-session_start();
+
 include '../../includes/session.php';
 include '../../includes/head.php';
 include '../../includes/app_header.php';
@@ -30,17 +30,17 @@ include 'new.php';
 				echo "<td>" .$row['FirstName'] . " " . $row['LastName']."</td>";
 				echo "<td>".$row['Company']."</td>";
 				echo "<td>";
-				if ($row['PhoneNumber1'] !== NULL) {
+				if ($row['PhoneNumber1'] !== NULL && $row['PhoneNumber1'] !== "") {
 					echo "<a href=\"tel:".$row['PhoneNumber1']."\" title=\"Phone Number 1\" class=\"hidden\">
 					<span class=\"fas fa-phone-square fa-2x\"></span>
 					</a>";
 				}
-				if ($row['PhoneNumber2'] !== NULL) {
+				if ($row['PhoneNumber2'] !== NULL && $row['PhoneNumber2'] !== "") {
 					echo "<a href=\"tel:".$row['PhoneNumber2']."\" title=\"Phone Number 2\" class=\"hidden\">
 					<span class=\"fas fa-phone-square fa-2x\"></span>
 					</a>";
 				}
-				if ($row['Email'] !== NULL) {
+				if ($row['Email'] !== NULL && $row['Email'] !== "") {
 					echo "<a href=\"mailto:".$row['Email']."\" title=\"Email\" class=\"hidden\">
 					<span class=\"fas fa-envelope-square fa-2x\"></span>
 					</a>";
