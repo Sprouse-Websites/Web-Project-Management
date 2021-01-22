@@ -1,5 +1,6 @@
 <?php
 $page_name = "WPM App";
+include '../includes/privconfig.php';
 include '../includes/config.php';
 include '../includes/lang/index.php';
 include '../includes/session.php';
@@ -14,16 +15,15 @@ include '../includes/app_header.php';
 			$sql = 'SELECT COUNT(ProjectName) As Output FROM projects WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND ProjectState = "Active";';
 			// echo $sql;
 			if($result = mysqli_query($link, $sql)){
-				if(mysqli_num_rows($result) > 0){
-					while($row = mysqli_fetch_array($result)){
-						echo $row['Output'];
-					}
+				while($row = mysqli_fetch_array($result)){
+					echo $row['Output'];
 				}
 			}
 			?>
 		</div>
+		<a href="projects">See all Projects</a>
 	</div>
-	<div class="w3-third w3-gray app-widget" style="">
+	<div class="w3-col l4 m5 s12 app-widget" style="background-color:#3385bf;">
 		Tasks
 		<div class="w3-row" style="">
 			<div class="w3-third w3-blue" style="">
@@ -33,10 +33,8 @@ include '../includes/app_header.php';
 					$sql = 'SELECT COUNT(TaskID) As ToDoTasksCnt FROM tasks WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND TaskPhase = "To Do";';
 					// echo $sql;
 					if($result = mysqli_query($link, $sql)){
-						if(mysqli_num_rows($result) > 0){
-							while($row = mysqli_fetch_array($result)){
-								echo $row['ToDoTasksCnt'];
-							}
+						while($row = mysqli_fetch_array($result)){
+							echo $row['ToDoTasksCnt'];
 						}
 					}
 					?>
@@ -49,10 +47,8 @@ include '../includes/app_header.php';
 					$sql = 'SELECT COUNT(TaskID) As InProgTasksCnt FROM tasks WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND TaskPhase = "In Progress";';
 					// echo $sql;
 					if($result = mysqli_query($link, $sql)){
-						if(mysqli_num_rows($result) > 0){
-							while($row = mysqli_fetch_array($result)){
-								echo $row['InProgTasksCnt'];
-							}
+						while($row = mysqli_fetch_array($result)){
+							echo $row['InProgTasksCnt'];
 						}
 					}
 					?>
@@ -65,15 +61,14 @@ include '../includes/app_header.php';
 					$sql = 'SELECT COUNT(TaskID) As ComplTasksCnt FROM tasks WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND TaskPhase = "Completed";';
 					// echo $sql;
 					if($result = mysqli_query($link, $sql)){
-						if(mysqli_num_rows($result) > 0){
-							while($row = mysqli_fetch_array($result)){
-								echo $row['ComplTasksCnt'];
-							}
+						while($row = mysqli_fetch_array($result)){
+							echo $row['ComplTasksCnt'];
 						}
 					}
 					?>
 				</div>
 			</div>
 		</div>
+		<a href="tasks">See all Tasks</a>
 	</div>
 </div>
