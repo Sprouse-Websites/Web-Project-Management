@@ -20,12 +20,12 @@ if ($conn->connect_error) {
 	echo "Connection failed: " . $conn->connect_error;
 }
 
-$sql = "INSERT INTO `clients` (`FirstName`,`MiddleNames`,`LastName`,`PhoneNumber1`,`PhoneNumber2`, `Email`,`Company`,`Notes`,`UserCompanyID`) VALUES ( '$_POST[FirstName]', '$_POST[MiddleNames]','$_POST[LastName]', '$_POST[PhoneNumber1]', '$_POST[PhoneNumber2]', '$_POST[Email]','$_POST[Company]', '$_POST[Notes]',  '$_SESSION[CompanyId]')";
+$sql = "INSERT INTO `clients` (`FirstName`,`MiddleNames`,`LastName`,`PhoneNumber1`,`PhoneNumber2`, `Email`,`Company`,`Notes`,`UserCompanyID`) VALUES ( '$_POST[FirstName]', '$_POST[MiddleNames]','$_POST[LastName]', '$_POST[PhoneNumber1]', '$_POST[PhoneNumber2]', '$_POST[Email]','$_POST[Company]', '$_POST[Notes]',  '$_SESSION[CompanyID]')";
 
 
 
 if ($conn->query($sql) === TRUE) {
-header("Location: index.php");
+echo "<script type=\"text/javascript\"> window.location.replace(\"index.php\"); </script>";
 }
 else {
 	echo "Data Failed to insert. Error Code: " . $sql . "<br>" . $conn->error;
