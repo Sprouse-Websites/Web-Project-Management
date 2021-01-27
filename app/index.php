@@ -16,7 +16,11 @@ include '../includes/app_header.php';
 			// echo $sql;
 			if($result = mysqli_query($link, $sql)){
 				while($row = mysqli_fetch_array($result)){
-					echo $row['Output'];
+					if ($row['Output'] == "" || $row['Output'] == NULL) {
+						echo "0";
+					} else {
+						echo $row['Output'];
+					}
 				}
 			}
 			?>
@@ -34,7 +38,11 @@ include '../includes/app_header.php';
 					// echo $sql;
 					if($result = mysqli_query($link, $sql)){
 						while($row = mysqli_fetch_array($result)){
-							echo $row['ToDoTasksCnt'];
+							if ($row['ToDoTasksCnt'] == "" || $row['ToDoTasksCnt'] == NULL) {
+								echo "0";
+							} else {
+								echo $row['ToDoTasksCnt'];
+							}
 						}
 					}
 					?>
@@ -48,7 +56,11 @@ include '../includes/app_header.php';
 					// echo $sql;
 					if($result = mysqli_query($link, $sql)){
 						while($row = mysqli_fetch_array($result)){
-							echo $row['InProgTasksCnt'];
+							if ($row['InProgTasksCnt'] == "" || $row['InProgTasksCnt'] == NULL) {
+								echo "0";
+							} else {
+								echo $row['InProgTasksCnt'];
+							}
 						}
 					}
 					?>
@@ -62,7 +74,11 @@ include '../includes/app_header.php';
 					// echo $sql;
 					if($result = mysqli_query($link, $sql)){
 						while($row = mysqli_fetch_array($result)){
-							echo $row['ComplTasksCnt'];
+							if ($row['ComplTasksCnt'] == "" || $row['ComplTasksCnt'] == NULL) {
+								echo "0";
+							} else {
+								echo $row['ComplTasksCnt'];
+							}
 						}
 					}
 					?>
