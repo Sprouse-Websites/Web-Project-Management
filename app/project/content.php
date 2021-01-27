@@ -3,7 +3,9 @@ include '../../includes/config.php';
 ?>
 <link rel="stylesheet" href="../../css/acf.css">
 
-<button id="opnACF" type="button" class="w3-button w3-yellow" name="button" style="cursor:pointer;"><i class="fas fa-file-upload"></i></button>
+<button id="opnACF" type="button" class="w3-button w3-yellow" name="button" style="cursor:pointer;" title="Add Content">
+<img src="/fa-icons/solid/file-upload.svg" alt="file-upload" height="15pt">
+</button>
 
 
 <!-- The Modal -->
