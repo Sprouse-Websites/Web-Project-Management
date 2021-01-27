@@ -4,7 +4,9 @@ include '../../includes/config.php';
 <link rel="stylesheet" href="../../css/ctf.css">
 <link rel="stylesheet" href="../../css/ttf.css">
 
-<button id="opnTTF" type="button" class="w3-button w3-red" name="button" style="cursor:pointer;"><i class="fas fa-clock"></i></button>
+<button id="opnTTF" type="button" class="w3-button w3-red" name="button" style="cursor:pointer;" title="Track Time">
+	<img src="/fa-icons/solid/clock.svg" alt="clock" height="15pt">
+</button>
 
 
 <!-- The Modal -->
@@ -19,85 +21,44 @@ include '../../includes/config.php';
 			<br>
 			<label for="">Task</label>
 			<?php
-			$sql = 'SELECT * FROM projects WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND ProjectID = "Active" ORDER BY ProjectName;';
 			$sql = "SELECT * FROM tasks WHERE ProjectId = ".$projectId." ORDER BY TaskProjectID;";
-			echo $sql;
+			// echo $sql;
 			if($result = mysqli_query($link, $sql)){
 				if(mysqli_num_rows($result) > 0){
-					echo "<select class=\"\" name=\"\Task\">";
+					echo "<select class=\"\" name=\"Task\">";
 
 					while($row = mysqli_fetch_array($result)){
-						echo "<option value=\"".(int)$row['ProjectId']."\">".$row['TaskName']."</option>";
+						echo "<option value=\"".(int)$row['TaskID']."\">".$projectRow['ProjectKey'] . "-" . $row['TaskProjectID']." ".$row['TaskName']."</option>";
 					}
 					echo "</select>";
 				}
 			}
 			?>
 			<br>
-			<label for="">Duration</label>
-			<div class="w3-row" style="">
-
-
-				<div class="sw-fifth">
-					<input id="weeks" value="0" size="2" min="0" max="52" type="number" onchange="secToHMS()" />
-					Weeks
-				</div>
-				<div class="sw-fifth">
-					<input id="days" value="0" size="2" min="0" max="6" type="number" onchange="secToHMS()" />
-					Days
-				</div>
-				<div class="sw-fifth">
-					<input id="hours" value="0" size="2" min="0" max="23" type="number" onchange="secToHMS()" />
-					Hours
-				</div>
-				<div class="sw-fifth">
-					<input id="minutes" value="0" size="2" min="0" max="59" type="number" onchange="secToHMS()" />
-					Minutes
-				</div>
-				<div class="sw-fifth">
-					<input id="seconds" value="0" size="2" min="0" max="59" type="number" onchange="secToHMS()" />
-					Seconds
-				</div>
-			</div>
+			<label for="">Started</label>
+			<input type="datetime-local" name="Started" value="<?php echo date("Y-m-d\TH:i:s"); ?>" max="<?php echo date("Y-m-d\TH:i:s"); ?>">
 			<br>
-			<input type="number" id="secondsoutput" name="Duration">
+			<label for="">Ended</label>
+			<input type="datetime-local" name="Ended" value="<?php echo date("Y-m-d\TH:i:s"); ?>" max="<?php echo date("Y-m-d\TH:i:s"); ?>">
 
 			<script type="text/javascript">
-			function secToHMS() {
-				var weeks = parseInt(document.getElementById("weeks").value);
-				var days = parseInt(document.getElementById("days").value);
-				var hrs = parseInt(document.getElementById("hours").value);
-				var mins = parseInt(document.getElementById("minutes").value);
-				var secs = parseInt(document.getElementById("seconds").value);
+			function secToHMST() {
+				var weeks = parseInt(document.getElementById("weekst").value);
+				var days = parseInt(document.getElementById("dayst").value);
+				var hrs = parseInt(document.getElementById("hourst").value);
+				var mins = parseInt(document.getElementById("minutest").value);
+				var secs = parseInt(document.getElementById("secondst").value);
 				var secout = (weeks * 7 * 24 * 60 * 60) + (days * 24 * 60 * 60) + (hrs * 60 * 60) + (mins * 60) + secs;
 
-				document.getElementById("secondsoutput").value = secout;
+				document.getElementById("secondsoutputt").value = secout;
 			}
 
 			</script>
-			<?php
-			$sql = 'SELECT * FROM projects WHERE CompanyID = ' . $_SESSION['CompanyID'] . ' AND ProjectState = "Active" ORDER BY ProjectName;';
-			if($result = mysqli_query($link, $sql)){
-				if(mysqli_num_rows($result) > 0){
-					echo "<select class=\"\" name=\"\Project\">";
-
-					while($row = mysqli_fetch_array($result)){
-						echo "<option value=\"".(int)$row['ProjectId']."\">".$row['ProjectName']."</option>";
-					}
-					echo "</select>";
-				}
-			}
-			?>
-
-<select class="" name="TaskPhase">
-	<option value="To Do">To Do</option>
-	<option value="In Progress">In Progress</option>
-	<option value="Complete">Complete</option>
-</select>
+<input type="hidden" name="project" value="<?php echo $projectId ?>">
 
 
 			<br>
-			<input type="submit" value="Add Task">
+			<input type="submit" value="Add Log">
 		</form>
 	</div>
 
