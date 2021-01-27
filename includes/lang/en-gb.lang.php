@@ -1,6 +1,4 @@
 <?php
-echo "English";
-
 // Greetings
 $lang['Hello'] = "Hi";
 
