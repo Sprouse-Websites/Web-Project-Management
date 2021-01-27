@@ -17,13 +17,13 @@ include '../../includes/config.php';
 			<label for="">Project Name</label>
 			<input type="text" name="project" value="" placeholder="Project Name" style="width:70%;" required maxlength="50">
 			<label for="">Project Key</label>
-			<input type="text" name="projectkey" value="" style="width:8%;" required maxlength="4">
+			<input type="text" name="projectkey" value="" style="width:12%;" maxlength="4">
 			<br>
 			<label for="">Project Description</label>
 			<textarea name="description" placeholder="Project Description" style="width:100%;" maxlength="200"></textarea>
 			<br>
 			<label for="">Client</label>
-			<select id="clientSelect" class="js-example-basic-single" name="client" oninput="checkClient()">
+			<select id="clientSelect" class="js-example-basic-single" name="client" required>
 				<option value="" disabled selected>Choose a client</option>
 				<?php
 				// Check connection
@@ -31,12 +31,12 @@ include '../../includes/config.php';
 					echo "<option value=\"\" disabled>Could not get list from Database</option>";
 				}
 				// Attempt select query execution
-				$sql = "SELECT DISTINCT Company FROM clients WHERE UserCompanyID =  " . $_SESSION[CompanyId] . " ORDER BY Company";
+				$sql = "SELECT * FROM clients WHERE UserCompanyID =  " . $_SESSION['CompanyID'] . " ORDER BY Company";
 
 				if($result = mysqli_query($link, $sql)){
 					if(mysqli_num_rows($result) > 0){
 						while($row = mysqli_fetch_array($result)){
-							echo "<option value=\"".$row['Company']."\">".$row['Company']."</option>";
+							echo "<option value=\"".$row['ClientID']."\">".$row['Company']." - ".$row['FirstName']." ".$row['LastName']."</option>";
 						}
 					}
 				}
@@ -67,6 +67,8 @@ include '../../includes/config.php';
 			<label for="">Colour</label>
 			<input type="color" name="color" required>
 			<br>
+			Billing
+			<br/>
 			<input type="submit" value="Add Project">
 		</form>
 	</div>
