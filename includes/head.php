@@ -22,25 +22,23 @@
 
 
 	<!-- Font Awesome -->
-	<script src="https://kit.fontawesome.com/e8abc56752.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/f57ba50558.js" crossorigin="anonymous"></script>
 
 
+	<!-- Transifex (Translation) -->
+	<script type="text/javascript">window.liveSettings={api_key:"<? echo $transifexAPI;?>"};</script>
+	<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
 
-<!-- Transifex (Translation) -->
-<script type="text/javascript">window.liveSettings={api_key:"$transifexAPI"};</script>
-<script type="text/javascript" src="//cdn.transifex.com/live.js"></script>
-
-<!-- Analytics -->
-<!-- 251202601 -->
-<!-- UA-145359620-4 -->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRWF3W59ET"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WRWF3W59ET');
+	<!-- Analytics -->
+	<!-- 251202601 -->
+	<!-- UA-145359620-4 -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRWF3W59ET"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-WRWF3W59ET');
 </script>
 
 </head>
