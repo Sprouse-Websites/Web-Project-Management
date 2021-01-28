@@ -70,11 +70,9 @@
 			echo (int)$DurationSec." Secs";
 		}
 		if ($Ratio > 100) {
-			echo "<div style=\"width:100%\" class=\"overdue progress-bar\">Overdue";
+			echo "<div style=\"width:100%\" class=\"overdue progress-bar\">Overdue</div>";
 		} else {
-			echo "<div style=\"width:".$Ratio."%\" class=\"progress-bar\">";
+			echo "<div style=\"width:".$Ratio."%\" class=\"progress-bar\"></div>";
 		}
 		?>
-	</div>
-</td>
 </div>
