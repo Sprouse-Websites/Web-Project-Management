@@ -1,0 +1,29 @@
+.navbar-item {
+	padding: 10px;
+	text-decoration: none;
+	border: none;
+	display: flex;
+	vertical-align: middle;
+	overflow: hidden;
+	color: inherit;
+	background-color: inherit;
+	text-align: center;
+	cursor: pointer;
+	white-space: nowrap;
+	margin: 10px 0;
+}
+
+.navbar-item:hover {
+	font-weight: bold;
+	background-color: #ccc!important;
+}
+
+.w3-bar {
+	display: flex;
+}
+
+.w3-bar .fas {
+	font-size: 23pt;
+	display: flex;
+	align-items: center;
+}

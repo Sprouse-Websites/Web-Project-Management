@@ -1,7 +1,4 @@
-a.hidden {
-	text-decoration: none;
-	color: inherit;
-}
+
 
 transparent {
 	visibility: hidden;
@@ -12,14 +9,13 @@ transparent {
 	width: 100%;
 	background-color: #ddd;
 	text-align: center;
+	height: 20pt;
 }
 
 .progress-bar {
-	padding-top: 10px;
-	padding-bottom: 10px;
 	color: white;
 	background-color: green;
-	padding-right: 7pt;
+	height: 20pt;
 }
 
 .progress-bar.overdue {
@@ -39,7 +35,7 @@ transparent {
 .app-widget {
 	border-radius: 27px;
 	padding: 15px !important;
-	margin: 0 1%;
+	margin: 1%;
 
 }
 
@@ -53,4 +49,8 @@ input[type="color"] {
 input[type="color"]:hover {
 	background: #e8e8e8;
 	box-shadow: 1px 1px 0px 0px darkgrey;
+}
+
+Task-Key {
+	display: inline-block;
 }

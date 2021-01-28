@@ -1,9 +1,23 @@
+@import "header.css";
 @import "misc.css";
 @import "autocomplete.css";
 @import "tables.css";
 @import "tabs.css";
 @import "vtabs.css";
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px Arial;
+}
+
 main {
 	margin: 4pt;
+}
+
+a.hidden {
+	text-decoration: none;
+	color: inherit;
 }
