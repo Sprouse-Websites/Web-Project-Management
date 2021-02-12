@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Sprouse-Websites/Web-Project-Management.svg?branch=main)](https://travis-ci.com/Sprouse-Websites/Web-Project-Management)
 # Web Project Management
 Web Project Management (WPM) is an open-source, web-based project management system for website developers.
 
