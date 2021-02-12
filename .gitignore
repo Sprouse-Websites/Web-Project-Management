@@ -1,2 +1,5 @@
-
-/fa-icons/*.svg
+node_modules/*
+fa-icons/*
+*.DS_Store
+includes/privconfig.php
+*error_log
