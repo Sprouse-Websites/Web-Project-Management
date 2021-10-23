@@ -3,3 +3,4 @@ fa-icons/*
 *.DS_Store
 includes/privconfig.php
 *error_log
+._*
